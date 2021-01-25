@@ -2,9 +2,10 @@ package routers
 
 import (
 	"github.com/astaxie/beego"
-	"go-project-open-source/simple_beego_project/controllers"
+	"simple_beego_project/controllers"
 )
 
 func init() {
 	beego.Router("/", &controllers.MainController{})
+	beego.Router("/register", &controllers.RegisterController{}, "get:ShowRegisterPage;post:HandleRegister")
 }
