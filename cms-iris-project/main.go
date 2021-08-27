@@ -27,5 +27,23 @@ func newApp() *iris.Application {
 
 // 初始化项目配置
 func InitConfig(app *iris.Application) {
+	app.Configure(iris.WithConfiguration(iris.Configuration{
+		Charset: "UTF-8",
+	}))
+	// 错误配置
+	app.OnErrorCode(iris.StatusNotFound, func(c context.Context) {
+		c.JSON(iris.Map{
+			"errmsg": iris.StatusNotFound,
+			"msg":    "page not found",
+			"data":   iris.Map{},
+		})
+	})
+	app.OnErrorCode(iris.StatusInternalServerError, func(context context.Context) {
+		context.JSON(iris.Map{
+			"errmsg": iris.StatusInternalServerError,
+			"msg":    "server interal error ",
+			"data":   iris.Map{},
+		})
+	})
 
 }
